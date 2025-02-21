@@ -1,7 +1,6 @@
-import Link from "next/link";
 import React from "react";
 
-export default function ServicesPage() {
+export default function ServicesDetailPage({ params }) {
   const data = [
     {
       _id: "1",
@@ -39,20 +38,22 @@ export default function ServicesPage() {
         "Leverage cloud technologies like AWS, Google Cloud, and Microsoft Azure for scalable and reliable cloud-based solutions.",
     },
   ];
+
+  const id = params?.id;
+  const singleData = data.find((d) => d._id == id);
   return (
-    <div>
-      <p className="font-bold text-3xl">Services Page</p>
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {data.map((d) => {
-        return (
-          <div>
-            <Link href={`/services/${d._id}`}>
-              <img className="w-full h-48 object-cover" src={d.service_image} alt="" />
-            </Link>
-          </div>
-        );
-      })}
-    </div>
+    <div className="p-4">
+      <h1 className="text-3xl text-center pb-6">ServicesDetailPage</h1>
+      <div className="grid md:grid-cols-2 justify-between  items-center">
+        <div className="md:w-[80%]">
+          <p>ID: {id}</p>
+          <p className="text-2xl font-semibold">{singleData.service_name}</p>
+          <p>{singleData.service_description}</p>
+        </div>
+        <div>
+          <img className="rounded-lg" src={singleData.service_image} alt="" />
+        </div>
+      </div>
     </div>
   );
 }
